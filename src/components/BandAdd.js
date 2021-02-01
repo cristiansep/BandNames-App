@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { SocketContext } from '../context/SocketContext';
 
-export const BandAdd = ({crearBanda}) => {
+
+export const BandAdd = () => {
 
     const [valor, setValor] = useState('');
+    const {socket} = useContext(SocketContext);
 
 
     const handleSubmit = (e) => {
@@ -10,9 +13,7 @@ export const BandAdd = ({crearBanda}) => {
 
         if(valor.trim().length > 0) {
 
-
-            crearBanda(valor);
-
+            socket.emit('nueva-banda', {nombre: valor});
 
             setValor('');
         }
